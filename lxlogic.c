@@ -31,7 +31,7 @@
 #define	isdiagonal(dir)	(((dir) & (NORTH | SOUTH)) && ((dir) & (EAST | WEST)))
 
 /* My internal assertion macro.
- */
+ 
 #ifdef NDEBUG
 #define	_assert(test)	((void)0)
 #else
@@ -39,6 +39,9 @@
 				        " (%s)\nPlease report this error to"  \
 				        " breadbox@muppetlabs.com", #test), 0))
 #endif
+*/
+
+#define	_assert(test)	((void)0)
 
 /* A list of ways for Chip to lose.
  */
