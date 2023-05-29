@@ -1399,9 +1399,9 @@ static int selectseriesandlevel(gamespec *gs, seriesdata *series, int autosel,
 static int choosegame(gamespec *gs, char const *lastseries)
 {
     seriesdata	s;
-
+	
     if (!createserieslist(NULL, &s.list, &s.count, &s.table))
-	return -1;
+		return -1;
     return selectseriesandlevel(gs, &s, FALSE, lastseries, 0);
 }
 
@@ -1763,7 +1763,7 @@ static int initializesystem(startupdata const *start)
 static void shutdownsystem(void)
 {
     shutdowngamestate();
-    freeallresources();
+  	freeallresources();
 }
 
 /* Determine what to play. A list of available series is drawn up; if
@@ -1784,7 +1784,7 @@ static int choosegameatstartup(gamespec *gs, startupdata const *start)
     tablespec	table;
     int		n;
 
-    if (!createserieslist(start->filename,
+	if (!createserieslist(start->filename,
 			  &series.list, &series.count, &series.table))
 	return -1;
 
@@ -1857,7 +1857,7 @@ int tworld(int argc, char *argv[])
     gamespec	spec;
     char	lastseries[sizeof spec.series.filebase];
     int		f;
-
+	
     if (!getsettings(argc, argv, &start))
 	return EXIT_FAILURE;
 
