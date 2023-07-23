@@ -36,8 +36,6 @@
 #define	SIZE_EXTUP	0x04	/* image extended upwards by one tile */
 #define	SIZE_EXTDOWN	0x08	/* image extended downards by one tile */
 #define	SIZE_EXTALL	0x0F	/* image is 3x3 tiles in size */
-#define SDL_SRCCOLORKEY	0x00001000	/**< Blit uses a source color key */
-#define SDL_SRCALPHA	0x00010000	/**< Blit uses source alpha blending */
 
 /* Structure providing pointers to the various tile images available
  * for a given id.
@@ -222,12 +220,12 @@ static SDL_Surface *newsurface(int w, int h, int transparency)
 
     if (transparency) {
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	s = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA | SDL_RLEACCEL,
+	s = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_RLEACCEL,
 				 w, h, 32,
 				 0xFF000000, 0x00FF0000,
 				 0x0000FF00, 0x000000FF);
 #else
-	s = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_SRCALPHA | SDL_RLEACCEL,
+	s = SDL_CreateRGBSurface(SDL_SWSURFACE | SDL_RLEACCEL,
 				 w, h, 32,
 				 0x000000FF, 0x0000FF00,
 				 0x00FF0000, 0xFF000000);
@@ -470,7 +468,7 @@ static SDL_Surface *extractkeyedtile(SDL_Surface *src,
     dest = newsurface(wimg, himg, TRUE);
     SDL_FillRect(dest, NULL, SDL_MapRGBA(dest->format, 
 					0, 0, 0, SDL_ALPHA_TRANSPARENT));
-    SDL_SetColorKey(src, SDL_SRCCOLORKEY, transpclr);
+    SDL_SetColorKey(src, SDL_TRUE, transpclr);
     rect.x = ximg;
     rect.y = yimg;
     rect.w = dest->w;
@@ -480,7 +478,7 @@ static SDL_Surface *extractkeyedtile(SDL_Surface *src,
 
     temp = dest;
     dest = SDL_ConvertSurfaceFormat(temp, SDL_PIXELFORMAT_RGBA8888, 0);
-    SDL_SetColorKey(dest, SDL_SRCCOLORKEY, transpclr);
+    SDL_SetColorKey(dest, SDL_TRUE, transpclr);
 
     SDL_FreeSurface(temp);
     if (!dest)
@@ -505,7 +503,7 @@ static SDL_Surface *extractemptytile(SDL_Surface *src,
 
     if (tileptr[Empty].opaque[0])
 	SDL_BlitSurface(tileptr[Empty].opaque[0], NULL, dest, NULL);
-    SDL_SetColorKey(src, SDL_SRCCOLORKEY, transpclr);
+    SDL_SetColorKey(src, SDL_TRUE, transpclr);
     rect.x = ximg;
     rect.y = yimg;
     rect.w = dest->w;
