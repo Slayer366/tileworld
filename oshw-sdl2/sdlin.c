@@ -443,7 +443,7 @@ int _sdlinputinitialize(void) {
   mergeable[CmdWest] = mergeable[CmdEast] = CmdNorth | CmdSouth;
 
   setkeyboardrepeat(TRUE);
-  // TODO: What is this?
+  // TODO: Keyboard input for symbols
 //  SDL_EnableUNICODE(TRUE);
   return TRUE;
 }
